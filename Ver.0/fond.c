@@ -8,6 +8,15 @@
 #define NB_COLONNES 60       /* Nombre de colonnes du jeu */
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
 
+int pomme, x[5], y[5],i;
+void AfficherSprite(int numsprite, int x, int y);
+
+void AfficherPommes() {
+  for(i=0; i<5; i++) {
+    AfficherSprite(pomme,x[i], y [i]);
+  }
+}
+
 void dessinerMurs() {
     /* Dessiner les murs en remplissant des rectangles */
     couleur couleurMurs = CouleurParNom("black");
@@ -31,7 +40,7 @@ int main() {
     CreerFenetre(10, 10, LARGEUR_FENETRE, HAUTEUR_FENETRE);
     ChoisirTitreFenetre("Snake");
     
-    couleurFond = CouleurParNom("grey"); /* Couleur de fond pour la zone de jeu */
+    couleurFond = CouleurParNom("lightgreen"); /* Couleur de fond pour la zone de jeu */
     EffacerEcran(couleurFond);
     dessinerMurs(); /* Dessiner les murs autour de la zone de jeu */
     
@@ -44,6 +53,18 @@ int main() {
             }
         }
     }
+    x[0]=100;
+    y[0]=100;
+    x[1]=200;
+    y[1]=200;
+
+
+  pomme = ChargerSprite("pomme.avif");
+  AfficherPommes();
+  
+
+
+
     
     FermerGraphique();
     return EXIT_SUCCESS;
