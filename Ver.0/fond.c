@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <graph.h>
-#include <X11/keysym.h>
 
 #define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
 #define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
@@ -35,11 +32,11 @@ void dessinerMurs() {
     RemplirRectangle(LARGEUR_FENETRE - TAILLE_CASE * 2, 0, TAILLE_CASE * 2, HAUTEUR_FENETRE);
     /* Rectangle supplémentaire en bas */
     RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80);
-        pomme=ChargerSprite("pomme.avif");
+        pomme=ChargerSprite("../Ver.0/image/pomme.png");
    
     for (i = 0; i < 5; i++) {
-       x[i] = ((rand() % (58)+1)*20);
-        y[i] = ((rand() % (35)+1)*20);
+       x[i] = ((rand() % (NB_COLONNES - 4) + 2) * TAILLE_CASE);
+        y[i] = ((rand() % (NB_LIGNES - 4) + 2) * TAILLE_CASE);
         AfficherSprite(pomme, x[i],y[i]);
     }
 
