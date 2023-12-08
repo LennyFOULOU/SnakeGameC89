@@ -8,16 +8,21 @@
 #define NB_COLONNES 60       /* Nombre de colonnes du jeu */
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
 
-int pomme, x[5], y[5],i;
-void AfficherSprite(int numsprite, int x, int y);
 
-void AfficherPommes() {
-  for(i=0; i<5; i++) {
-    AfficherSprite(pomme,x[i], y [i]);
-  }
+int pomme,x[5], y[5];
+int i;
+void Pomme(){
+
+    for(i = 0; i< 5; i++){
+        AfficherSprite(pomme, x[i], y[i]);
+    }
+    
 }
-
 void dessinerMurs() {
+
+       
+
+  
     /* Dessiner les murs en remplissant des rectangles */
     couleur couleurMurs = CouleurParNom("black");
     /* Mur du haut */
@@ -30,6 +35,15 @@ void dessinerMurs() {
     RemplirRectangle(LARGEUR_FENETRE - TAILLE_CASE * 2, 0, TAILLE_CASE * 2, HAUTEUR_FENETRE);
     /* Rectangle supplémentaire en bas */
     RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80);
+        pomme=ChargerSprite("pomme.avif");
+   
+    for (i = 0; i < 5; i++) {
+       x[i] = ((rand() % (58)+1)*20);
+        y[i] = ((rand() % (35)+1)*20);
+        AfficherSprite(pomme, x[i],y[i]);
+    }
+
+Pomme();
 }
 
 int main() {
@@ -53,19 +67,12 @@ int main() {
             }
         }
     }
-    x[0]=100;
-    y[0]=100;
-    x[1]=200;
-    y[1]=200;
 
 
-  pomme = ChargerSprite("pomme.avif");
-  AfficherPommes();
+
   
 
-
-
-    
     FermerGraphique();
     return EXIT_SUCCESS;
 }
+
