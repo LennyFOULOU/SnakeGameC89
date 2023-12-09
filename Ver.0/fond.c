@@ -1,3 +1,6 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<graph.h>
 
 #define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
 #define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
