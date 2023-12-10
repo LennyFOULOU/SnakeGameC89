@@ -1,6 +1,10 @@
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<graph.h>
+#include"fond.h"
+#include"serpent.h"
+#include"fruit.h"
 
 #define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
 #define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
@@ -9,15 +13,7 @@
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
 
 
-int pomme,x[5], y[5];
-int i;
-void Pomme(){
 
-    for(i = 0; i< 5; i++){
-        AfficherSprite(pomme, x[i], y[i]);
-    }
-    
-}
 void dessinerMurs() {
 
        
@@ -35,44 +31,13 @@ void dessinerMurs() {
     RemplirRectangle(LARGEUR_FENETRE - TAILLE_CASE * 2, 0, TAILLE_CASE * 2, HAUTEUR_FENETRE);
     /* Rectangle supplémentaire en bas */
     RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80);
-        pomme=ChargerSprite("../Ver.0/image/pomme.png");
+
    
-    for (i = 0; i < 5; i++) {
-       x[i] = ((rand() % (NB_COLONNES - 4) + 2) * TAILLE_CASE);
-        y[i] = ((rand() % (NB_LIGNES - 4) + 2) * TAILLE_CASE);
-        AfficherSprite(pomme, x[i],y[i]);
-    }
 
-Pomme();
+
+
 }
 
-int main() {
-    couleur couleurFond;
-    int touchePressee;
-
-    InitialiserGraphique();
-    CreerFenetre(10, 10, LARGEUR_FENETRE, HAUTEUR_FENETRE);
-    ChoisirTitreFenetre("Snake");
-    
-    couleurFond = CouleurParNom("lightgreen"); /* Couleur de fond pour la zone de jeu */
-    EffacerEcran(couleurFond);
-    dessinerMurs(); /* Dessiner les murs autour de la zone de jeu */
-    
-    touchePressee = 0; /* Variable pour détecter si une touche a été pressée */
-    while (!touchePressee) {
-        if (ToucheEnAttente()) {
-            KeySym touche = Touche();
-            if (touche == XK_Escape) { /* Si la touche appuyée est Échap */
-                touchePressee = 1; /* Sortir de la boucle */
-            }
-        }
-    }
 
 
-
-  
-
-    FermerGraphique();
-    return EXIT_SUCCESS;
-}
 

@@ -1,21 +1,50 @@
-#include<stdlib.h>
-#include<stdio.h>
-#include<graph.h>
+#include <stdlib.h>
+#include <graph.h>
+#include <time.h>
+#include"fruit.h"
 
-/* Définition des constantes pour la fenêtre et le serpent */
-#define LARGEUR_FENETRE 1600
-#define HAUTEUR_FENETRE 1800
-#define TAILLE_CASE 10
-#define NB_COLONNES 60
-#define NB_LIGNES 40
-#define DELAI 100000 /*Microseconde*/
+#define TAILLE_POMME 20  /* Taille de la pomme*/
+#define NB_SPRITES 5    /* Nombre total de sprites pour les pommes*/
+#define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
+#define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
+#define TAILLE_CASE 10       /* Taille d'une case pour le jeu de Snake */
+#define NB_COLONNES 60       /* Nombre de colonnes du jeu */
+#define NB_LIGNES 40         /* Nombre de lignes du jeu */
+#define NB_SPRITE 5
 
-int pomme,x[5], y[5];
-int i;
-void Pomme(){
 
-    for(i = 0; i< 5; i++){
-        AfficherSprite(pomme, x[i], y[i]);
+/* Fonction pour initialiser les sprites des pommes */
+void InitialiserSprites() {
+  /* Charger les sprites des pommes*/
+  int SpritePomme =  ChargerSprite("/Ver.0/image/pomme.png");
+  int PommeSprite[NB_SPRITE];
+  int i;
+    for ( i = 0; i < NB_SPRITES; i++) {
+      PommeSprite[i] = SpritePomme;
+
     }
-    
 }
+
+/* Fonction pour afficher une pomme à une position aléatoire avec un sprite aléatoire */
+void AfficherPommeAleatoire() {
+ 
+    int x = (rand() % (LARGEUR_FENETRE / TAILLE_CASE)) * TAILLE_CASE;
+    int y = (rand() % (HAUTEUR_FENETRE / TAILLE_CASE)) * TAILLE_CASE;
+
+    /* Afficher la pomme à ces coordonnées en utilisant un sprite aléatoire*/
+    int numSprite = rand() % NB_SPRITES;
+    AfficherSprite(numSprite, x, y);
+
+   
+    usleep(500000);  /* Attente de 500 000 microsecondes (0.5 seconde)*/
+}
+
+/* Fonction pour libérer les sprites des pommes */
+void LibererSprites() {
+  int i;
+  /* Libérer les sprites des pommes*/
+    for ( i = 0; i < NB_SPRITES; i++) {
+        LibererSprite(i);
+    }
+}
+
