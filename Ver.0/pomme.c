@@ -1,18 +1,22 @@
-#include<stdlib.h>
-#include<stdio.h>
-#include<graph.h>
-int pomme, x[5], y[5],i;
-  void AfficherSprite(int numsprite, int x, int y);
+#include <stdlib.h>
+#include <stdio.h>
+#include <graph.h>
 
-void AfficherPommes() {
-  for(i=0; i<5; i++) {
-    AfficherSprite(pomme,x[i], y [i]);
-  }
-}
-int main () {
-  pomme = ChargerSprite("pomme.bmp");
-  AfficherPommes();
+ int pomme, i, x[5], y[5];
+
+ void AfficherSprite(int numsprite, int x, int y);
+
+ void AfficherPommes() {
+   for(i=0; i<5; i++) {
+     AfficherSprite(pomme,x[i], y [i]);
+   }
   
+ }
 
-  return EXIT_SUCCESS;
+ int main () {
+   
+ pomme = ChargerSprite("pomme.bmp");
+ AfficherPommes();
+ return EXIT_SUCCESS;
+ 
 }
