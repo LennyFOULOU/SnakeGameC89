@@ -32,19 +32,12 @@ int main() {
       KeySym touche = Touche();
 
       /* Utiliser des conditions pour détecter différentes touches */
-      if (touche == XK_Return) {
-      /* Code pour la touche "entrée" */
-      } else if (touche == XK_Escape) {
-      /* Code pour la touche "échappe" */
+          
+      if (touche == XK_Escape) { /* Code pour la touche "échappe" */
       touchePressee = 1;
-      } else if (touche == XK_Shift_L || touche == XK_Shift_R) {
-      /* Code pour les touches "Shift" */
-      } else if (touche == XK_Control_L || touche == XK_Control_R) {
-      /* Code pour les touches "Control" */
-      } else if (touche == XK_KP_Enter) {
-      /* Code pour la touche "entrée" du pavé numérique */
-      } else if (touche == XK_space) {
-      /* Code pour la touche "espace" */
+      
+      } else if (touche == XK_space) { /* Code pour la touche "espace" */
+	
       } else if (touche == XK_Left || touche == XK_Right || touche == XK_Up || touche == XK_Down) {
 	serpent.direction = touche;
       }
