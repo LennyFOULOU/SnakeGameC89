@@ -10,7 +10,7 @@
 #define TAILLE_CASE 10       /* Taille d'une case pour le jeu de Snake */
 #define NB_COLONNES 60       /* Nombre de colonnes du jeu */
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
-#define DELAI 1              /* Contrôler la vitesse du serpent */
+#define DELAI 50             /* Contrôler la vitesse du serpent */
 
 
 int main() {
