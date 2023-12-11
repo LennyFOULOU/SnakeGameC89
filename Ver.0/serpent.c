@@ -1,71 +1,87 @@
-#include "serpent.h"
-#include "fruit.h"
-#include "fond.h"
 #include <stdlib.h>
 #include <graph.h>
+#include <X11/keysym.h>
+#include <unistd.h>
 
-#define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
-#define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
-#define TAILLE_CASE 10       /* Taille d'une case pour le jeu de Snake */
-#define NB_COLONNES 60       /* Nombre de colonnes du jeu */
-#define NB_LIGNES 40
+/* Définition des constantes pour la fenêtre et le serpent */
+#define LARGEUR_FENETRE 800
+#define HAUTEUR_FENETRE 600
+#define TAILLE_CASE 10
+#define NB_COLONNES (LARGEUR_FENETRE / TAILLE_CASE)
+#define NB_LIGNES (HAUTEUR_FENETRE / TAILLE_CASE)
+#define DELAI 100000 /*Microsecondes*/
 
+    int i;
 
+/* Définition de la structure pour la position */
+typedef struct {
+    int x;
+    int y;
+} Position;
 
+/* Définition de la structure pour le serpent */
+typedef struct {
+    Position position;
+    int longueur;
+    Position* trainee; /* Utiliser un nom simple pour la variable */
+    int direction;
+} Serpent;
+
+/* Fonction pour initialiser le serpent */
 void initialiserSerpent(Serpent* serpent) {
-  
     serpent->position.x = NB_COLONNES / 2 * TAILLE_CASE;
     serpent->position.y = NB_LIGNES / 2 * TAILLE_CASE;
     serpent->longueur = 10;
     serpent->trainee = (Position*)malloc(serpent->longueur * sizeof(Position));
     serpent->direction = XK_Right; /* Direction initiale */
-
 }
 
-
+/* Fonction pour déplacer le serpent */
 int deplacerSerpent(Serpent* serpent) {
+    /* Sauvegarder la position actuelle de la tête du serpent */
+    Position ancienneTete = serpent->position;
 
-  int i;
-  Position ancienneTete = serpent->position;
-
-  if (serpent->direction == XK_Left) {
-  serpent->position.x -= TAILLE_CASE;
-  } else if (serpent->direction == XK_Right) {
-  serpent->position.x += TAILLE_CASE;
-  } else if (serpent->direction == XK_Up) {
-  serpent->position.y -= TAILLE_CASE;
-  } else if (serpent->direction == XK_Down) {
-  serpent->position.y += TAILLE_CASE;
-  }
-
-  if (serpent->longueur > 1) {
-    for (i = serpent->longueur - 1; i > 0; i--) {
-      serpent->trainee[i] = serpent->trainee[i - 1];
+    /* Mettre à jour la position de la tête en fonction de la direction */
+    if (serpent->direction == XK_Left) {
+        serpent->position.x -= TAILLE_CASE;
+    } else if (serpent->direction == XK_Right) {
+        serpent->position.x += TAILLE_CASE;
+    } else if (serpent->direction == XK_Up) {
+        serpent->position.y -= TAILLE_CASE;
+    } else if (serpent->direction == XK_Down) {
+        serpent->position.y += TAILLE_CASE;
     }
-    serpent->trainee[0] = ancienneTete;
+
+    /* Mettre à jour la trainée du serpent */
+    if (serpent->longueur > 1) {
+        /* Déplacer chaque segment de la trainée */
+        int i;
+        for (i = serpent->longueur - 1; i > 0; i--) {
+            serpent->trainee[i] = serpent->trainee[i - 1];
+        }
+        /* Mettre la vieille position de la tête comme le premier segment de la trainée */
+        serpent->trainee[0] = ancienneTete;
     }
-  
+
+
+
 }
 
+/* Fonction pour afficher le serpent */
+int afficherSerpent(Serpent* serpent) {
+    couleur couleurSerpent = CouleurParNom("red");
 
+    /* Afficher la tête du serpent */
+    RemplirRectangle(serpent->position.x, serpent->position.y, TAILLE_CASE, TAILLE_CASE);
 
-int afficherSerpent(Serpent* serpent) { /* Fonction pour afficher le serpent */
+    /* Afficher la trainée du serpent */
 
-  int i;
-  couleur couleurSerpent = CouleurParComposante(34, 139, 34);
-
-  ChoisirCouleurDessin(couleurSerpent);
-
-  /* Afficher la tête du serpent */
-  RemplirRectangle(serpent->position.x, serpent->position.y, TAILLE_CASE, TAILLE_CASE);
-
-  /* Afficher la trainée du serpent */
-  for (i = 0; i < serpent->longueur - 1; i++) {
-    RemplirRectangle(serpent->trainee[i].x, serpent->trainee[i].y, TAILLE_CASE, TAILLE_CASE);
-  }
-  if (serpent->position.x < 0 || serpent->position.x >= LARGEUR_FENETRE ||
-      serpent->position.y < 0 || serpent->position.y >= HAUTEUR_FENETRE) {
-    return 0; /* Indiquer que le serpent est sorti de la fenêtre */
-  }
-
+    for (i = 0; i < serpent->longueur - 1; i++) {
+        RemplirRectangle(serpent->trainee[i].x, serpent->trainee[i].y, TAILLE_CASE, TAILLE_CASE);
+    }
+    if (serpent->position.x < 0 || serpent->position.x >= LARGEUR_FENETRE ||
+        serpent->position.y < 0 || serpent->position.y >= HAUTEUR_FENETRE) {
+        return 0; /* Indiquer que le serpent est sorti de la fenêtre */
+    }
 }
+
