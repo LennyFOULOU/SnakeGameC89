@@ -4,33 +4,26 @@
 #include "fond.h"
 #include "serpent.h"
 #include "fruit.h"
+
 #define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
 #define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
 #define TAILLE_CASE 10       /* Taille d'une case pour le jeu de Snake */
 #define NB_COLONNES 60       /* Nombre de colonnes du jeu */
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
-<<<<<<< HEAD
 #define DELAI 1           /* Contrôler la vitesse du serpent */
-int main() {
 
-=======
-#define DELAI 20           /* Contrôler la vitesse du serpent */
 
 
 int main() {
   
->>>>>>> df51c8bc83b53c2bd4f8abfe5c13d257e24e39e7
   couleur c = CouleurParComposante(200, 200, 200);
   int touchePressee = 0;
   Serpent serpent;
 
   InitialiserGraphique();
   CreerFenetre(10, 10, LARGEUR_FENETRE, HAUTEUR_FENETRE);
-<<<<<<< HEAD
-=======
 
   EffacerEcran(c);
->>>>>>> df51c8bc83b53c2bd4f8abfe5c13d257e24e39e7
   dessinerMurs();
   initialiserSerpent(&serpent);
   InitialiserSprites();
