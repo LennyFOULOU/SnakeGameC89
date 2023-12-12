@@ -10,11 +10,10 @@
 #define TAILLE_CASE 10       /* Taille d'une case pour le jeu de Snake */
 #define NB_COLONNES 60       /* Nombre de colonnes du jeu */
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
-#define DELAI 50             /* Contrôler la vitesse du serpent */
+#define DELAI 20           /* Contrôler la vitesse du serpent */
 
 
 int main() {
-  couleur couleurFond;
   
   couleur c = CouleurParComposante(200, 200, 200);
   int touchePressee = 0;
@@ -23,6 +22,7 @@ int main() {
   InitialiserGraphique();
   CreerFenetre(10, 10, LARGEUR_FENETRE, HAUTEUR_FENETRE);
 
+  EffacerEcran(c);
   dessinerMurs();
 
   initialiserSerpent(&serpent);
@@ -53,7 +53,7 @@ int main() {
       
       /* Si aucune touche n'est en attente, continuer à déplacer le serpent dans la dernière direction */
       deplacerSerpent(&serpent);
-      EffacerEcran(couleurFond);
+      EffacerEcran(c);
       afficherSerpent(&serpent);
        usleep(DELAI);
       AfficherPommeAleatoire();
