@@ -3,15 +3,14 @@
 #include <X11/keysym.h>
 #include <unistd.h>
 
-/* Définition des constantes pour la fenêtre et le serpent */
 #define LARGEUR_FENETRE 800
 #define HAUTEUR_FENETRE 600
 #define TAILLE_CASE 10
 #define NB_COLONNES (LARGEUR_FENETRE / TAILLE_CASE)
 #define NB_LIGNES (HAUTEUR_FENETRE / TAILLE_CASE)
-#define DELAI 100000 /*Microsecondes*/
+#define DELAI 1 /*Microsecondes*/
 
-    int i;
+int i;
 
 /* Définition de la structure pour la position */
 typedef struct {
@@ -23,7 +22,7 @@ typedef struct {
 typedef struct {
     Position position;
     int longueur;
-    Position* trainee; /* Utiliser un nom simple pour la variable */
+    Position* trainee;
     int direction;
 } Serpent;
 
@@ -67,9 +66,11 @@ int deplacerSerpent(Serpent* serpent) {
 
 }
 
-/* Fonction pour afficher le serpent */
-int afficherSerpent(Serpent* serpent) {
-    couleur couleurSerpent = CouleurParNom("red");
+int afficherSerpent(Serpent* serpent) { /* Fonction pour afficher le serpent */
+    int i;
+    couleur couleurMurs = CouleurParComposante(0, 0, 0);
+    couleur couleurSerpent = CouleurParComposante(34, 139, 34);
+        ChoisirCouleurDessin(couleurSerpent);
 
     /* Afficher la tête du serpent */
     RemplirRectangle(serpent->position.x, serpent->position.y, TAILLE_CASE, TAILLE_CASE);
@@ -79,6 +80,9 @@ int afficherSerpent(Serpent* serpent) {
     for (i = 0; i < serpent->longueur - 1; i++) {
         RemplirRectangle(serpent->trainee[i].x, serpent->trainee[i].y, TAILLE_CASE, TAILLE_CASE);
     }
+     /* Réinitialiser la couleur des murs (noir) */
+    ChoisirCouleurDessin(couleurMurs);
+    
     if (serpent->position.x < 0 || serpent->position.x >= LARGEUR_FENETRE ||
         serpent->position.y < 0 || serpent->position.y >= HAUTEUR_FENETRE) {
         return 0; /* Indiquer que le serpent est sorti de la fenêtre */

@@ -4,34 +4,27 @@
 #include "fond.h"
 #include "serpent.h"
 #include "fruit.h"
-
 #define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
 #define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
 #define TAILLE_CASE 10       /* Taille d'une case pour le jeu de Snake */
 #define NB_COLONNES 60       /* Nombre de colonnes du jeu */
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
-#define DELAI 50             /* Contrôler la vitesse du serpent */
-
-
+#define DELAI 1           /* Contrôler la vitesse du serpent */
 int main() {
-  couleur couleurFond;
-  
+
   couleur c = CouleurParComposante(200, 200, 200);
   int touchePressee = 0;
   Serpent serpent;
 
   InitialiserGraphique();
   CreerFenetre(10, 10, LARGEUR_FENETRE, HAUTEUR_FENETRE);
-
   dessinerMurs();
-
   initialiserSerpent(&serpent);
   InitialiserSprites();
 
   while (!touchePressee) {
     if (ToucheEnAttente()) {
       KeySym touche = Touche();
-
       /* Utiliser des conditions pour détecter différentes touches */
     if (touche == XK_Return) {
                 /* Code pour la touche "entrée" */
@@ -53,16 +46,15 @@ int main() {
       
       /* Si aucune touche n'est en attente, continuer à déplacer le serpent dans la dernière direction */
       deplacerSerpent(&serpent);
-      EffacerEcran(couleurFond);
+      EffacerEcran(c);
       afficherSerpent(&serpent);
        usleep(DELAI);
+       dessinerMurs();
       AfficherPommeAleatoire();
       LibererSprites();
    
     }
-
   }
-
   FermerGraphique();
   LibererSprites();
   free(serpent.trainee);
