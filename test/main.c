@@ -11,7 +11,7 @@
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
 #define CYCLE 100000
 #define VITESSE_SERPENT 100000
-
+#define NB_POMMES 5
 
 
 int main() {
@@ -20,19 +20,22 @@ int main() {
   couleur couleurFond = CouleurParComposante(200, 200, 200);
   int touchePressee, i;
   Serpent serpent;
-        unsigned long tempsPrecedent = Microsecondes();
-    unsigned long tempsActuel;
-      couleur couleurMurs = CouleurParComposante(0, 0, 0);
-
+  unsigned long tempsPrecedent = Microsecondes();
+  unsigned long tempsActuel;
+  couleur couleurMurs = CouleurParComposante(0, 0, 0);
+  Pomme pommes[NB_POMMES];
+  srand(time(NULL));
 
 
   InitialiserGraphique();
   CreerFenetre(10, 10, LARGEUR_FENETRE, HAUTEUR_FENETRE);
- 
+  
   EffacerEcran(couleurFond);
 
   AfficherFenetre();
-
+  
+  InitialiserPommes(pommes, NB_POMMES); 
+    GenererPommes(pommes, NB_POMMES);
 
     InitialiserSerpent(&serpent, LARGEUR_FENETRE / 2, HAUTEUR_FENETRE / 2);
     
@@ -51,6 +54,8 @@ int main() {
             } else if (touche == XK_Down && serpent.directionY != -1) {
                 serpent.directionX = 0;
                 serpent.directionY = 1;
+            } else if (touche == XK_Escape) { 
+	        break;
             }
         }
 
@@ -64,13 +69,18 @@ int main() {
 
             EffacerEcran(couleurFond);
             DessinerSerpent(&serpent);
+	    AfficherPommes(pommes, NB_POMMES); 
             AfficherFenetre();
             tempsPrecedent = tempsActuel;
 	    ChoisirCouleurDessin(couleurMurs);
 	    RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80);                       
         }
     }
-
+    
+    for (i = 0; i < NB_POMMES; i++) {
+        LibererSprite(pommes[i].sprite);
+    }
+    
     FermerGraphique();
     return EXIT_SUCCESS;
 }

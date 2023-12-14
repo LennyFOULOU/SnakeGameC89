@@ -4,41 +4,48 @@
 #include "fruit.h"
 
 #define TAILLE_POMME 20
-#define NB_SPRITES 5         
+#define NB_POMMES 5         
 #define LARGEUR_FENETRE 1600
 #define HAUTEUR_FENETRE 1000        
 #define NB_COLONNES 60       
 #define NB_LIGNES 40       
 
-void PlacerPomme(Pomme *pomme) {
-    int i;
-    for (i = 0; i < NB_SPRITES; i++) {
-        do {
-            pomme[i].position.x = rand() % (LARGEUR_FENETRE / TAILLE_CASE) * TAILLE_CASE;
-            pomme[i].position.y = rand() % ((HAUTEUR_FENETRE - 80) / TAILLE_CASE) * TAILLE_CASE;
-        } while (!EstPositionValide(pomme, i)); 
-
-        pomme[i].disponible = 1;
-
-        ChoisirEcran(1);
-        AfficherSprite(pomme[i].sprite, pomme[i].position.x, pomme[i].position.y);
-        ChoisirEcran(0);
-        CopierZone(1, 0, 0, 0, LARGEUR_FENETRE, HAUTEUR_FENETRE, 0, 0);
+void InitialiserPommes(Pomme pommes[], int nombrePommes) {
+  int i;
+    for (i = 0; i < nombrePommes; i++) {
+        pommes[i].estMangee = 0;
+        pommes[i].sprite = ChargerSprite("image/pomme.png"); 
     }
 }
 
+void GenererPommes(Pomme pommes[], int nombrePommes) {
+  int i;
+  /* Génération des positions aléatoires pour les pommes */
+    for (i = 0; i < nombrePommes; i++) {
+        pommes[i].x = TAILLE_POMME + rand() % (LARGEUR_FENETRE - 2 * TAILLE_POMME);
+        pommes[i].y = TAILLE_POMME + rand() % ((HAUTEUR_FENETRE - 80) - 2 * TAILLE_POMME);
+        pommes[i].estMangee = 0;
+    }
+}
 
-int EstPositionValide(Pomme *pomme, int index) {
-    int i;
-    for (i = 0; i < index; i++) {
-        if ((pomme[index].position.x == pomme[i].position.x) && (pomme[index].position.y == pomme[i].position.y)) {
-            return 0;
+void AfficherPommes(Pomme pommes[], int nombrePommes) {
+  int i;
+    for (i = 0; i < nombrePommes; i++) {
+        if (!pommes[i].estMangee) {
+            AfficherSprite(pommes[i].sprite, pommes[i].x, pommes[i].y);
         }
     }
+}
 
-    if (pomme[index].position.y >= HAUTEUR_FENETRE - 80) {
-        return 0; 
+void MangerPomme(Pomme pommes[], int nombrePommes, int x, int y) {
+  int i;
+    for (i = 0; i < nombrePommes; i++) {
+        if (!pommes[i].estMangee && x == pommes[i].x && y == pommes[i].y) {
+            pommes[i].estMangee = 1;
+        }
     }
+}
 
-    return 1;
+void DessinerPomme(int x, int y, int sprite) {
+    AfficherSprite(sprite, x, y);
 }

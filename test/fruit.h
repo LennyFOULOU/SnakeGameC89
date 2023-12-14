@@ -5,20 +5,17 @@
 typedef struct {
     int x;
     int y;
-} Position;
-
-typedef struct {
-    int disponible;
-    Point position;
-    int sprite; 
+    int estMangee;
+  int sprite; /* Ajout d'un identifiant pour le sprite de la pomme */
 } Pomme;
 
-void InitialiserPomme(Pomme *pomme);
-
-int MangerPomme(Serpent *serpent, Pomme *pomme);
-
-void PlacerPomme(Pomme *pomme);
-
-int EstPositionValide(Pomme *pomme, int index);
+void InitialiserPommes(Pomme pommes[], int nombrePommes);
+void GenererPommes(Pomme pommes[], int nombrePommes);
+void AfficherPommes(Pomme pommes[], int nombrePommes);
+void MangerPomme(Pomme pommes[], int nombrePommes, int x, int y);
+void DessinerPomme(int x, int y, int sprite); 
+int ChargerSprite(char *file);
+void AfficherSprite(int n, int x, int y);
+void LibererSprite(int n);
 
 #endif
