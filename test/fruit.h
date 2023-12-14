@@ -13,11 +13,12 @@ typedef struct {
     int sprite; 
 } Pomme;
 
-
 void InitialiserPomme(Pomme *pomme);
 
 int MangerPomme(Serpent *serpent, Pomme *pomme);
 
 void PlacerPomme(Pomme *pomme);
+
+int EstPositionValide(Pomme *pomme, int index);
 
 #endif

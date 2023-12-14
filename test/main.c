@@ -18,27 +18,24 @@ int main() {
 
 
   couleur couleurFond = CouleurParComposante(200, 200, 200);
-   int touchePressee; 
+  int touchePressee, i;
   Serpent serpent;
-    Pomme pomme;
         unsigned long tempsPrecedent = Microsecondes();
     unsigned long tempsActuel;
+      couleur couleurMurs = CouleurParComposante(0, 0, 0);
+
 
 
   InitialiserGraphique();
   CreerFenetre(10, 10, LARGEUR_FENETRE, HAUTEUR_FENETRE);
  
-EffacerEcran(couleurFond);
+  EffacerEcran(couleurFond);
 
   AfficherFenetre();
 
 
     InitialiserSerpent(&serpent, LARGEUR_FENETRE / 2, HAUTEUR_FENETRE / 2);
-    InitialiserPomme(&pomme);
-    PlacerPomme(&pomme);
-
-
-
+    
     while (1) {
         if (ToucheEnAttente()) {
             int touche = Touche();
@@ -65,19 +62,18 @@ EffacerEcran(couleurFond);
                 return EXIT_SUCCESS;
             }
 
-            if (MangerPomme(&serpent, &pomme)) {
-               serpent.longueur++;
-                PlacerPomme(&pomme);
-            }
-
             EffacerEcran(couleurFond);
             DessinerSerpent(&serpent);
-            PlacerPomme(&pomme);  
             AfficherFenetre();
             tempsPrecedent = tempsActuel;
+	    ChoisirCouleurDessin(couleurMurs);
+	    RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80);                       
         }
     }
 
     FermerGraphique();
     return EXIT_SUCCESS;
 }
+
+
+

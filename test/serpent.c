@@ -39,7 +39,7 @@ int VerifierCollision(const Serpent *serpent) {
     int teteY = serpent->corps[0].y;
     int i;
 
-    if (teteX < 0 || teteX >= LARGEUR_FENETRE || teteY < 0 || teteY >= HAUTEUR_FENETRE) {
+    if (teteX < 0 || teteX >= LARGEUR_FENETRE || teteY < 0 || teteY >= HAUTEUR_FENETRE-80) {
         return 1;
     }
 
