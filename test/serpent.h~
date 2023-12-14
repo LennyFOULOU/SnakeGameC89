@@ -1,0 +1,29 @@
+#ifndef SERPENT_H
+#define SERPENT_H
+
+#include <X11/keysym.h>
+
+/* Définition de la structure pour la position */
+typedef struct {
+    int x;
+    int y;
+} Position;
+
+/* Définition de la structure pour le serpent */
+typedef struct {
+    Position position;
+    int longueur;
+    Position* trainee;
+    int direction;
+} Serpent;
+
+/* Fonction pour initialiser le serpent */
+void initialiserSerpent(Serpent* serpent);
+
+/* Fonction pour déplacer le serpent */
+int deplacerSerpent(Serpent* serpent);
+
+/* Fonction pour afficher le serpent */
+int afficherSerpent(Serpent* serpent);
+
+#endif // SERPENT_H
