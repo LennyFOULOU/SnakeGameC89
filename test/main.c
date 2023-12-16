@@ -65,7 +65,7 @@ int main() {
         if (tempsActuel - tempsPrecedent >= VITESSE_SERPENT) {
              MangerPomme(pommes, NB_POMMES, serpent.corps[0].x, serpent.corps[0].y, &pommeMangee);
             if (pommeMangee) {
-            serpent.longueur++;  
+            serpent.longueur+=2;  
             GererPommesMangees(pommes, NB_POMMES);
             pommeMangee = 0;
             }
