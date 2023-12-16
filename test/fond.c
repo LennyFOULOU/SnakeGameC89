@@ -5,22 +5,19 @@
 #include "serpent.h"
 #include "fruit.h"
 
-#define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
-#define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
+#define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre */
+#define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre */
 #define NB_COLONNES 60       /* Nombre de colonnes du jeu */
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
 
-    unsigned long tempsDebut = 0; /* Variable globale pour stocker le temps de début */
 
-
-void dessinerMurs() { /* Dessiner les murs en remplissant des rectangles */
-    couleur couleurMurs = CouleurParComposante(0, 0, 0);
+void dessinerMurs() {
     unsigned long tempsActuel, tempsEcoule, minutes, secondes; 
     char tempsString[10];
+    static unsigned long tempsDebut = 0; /* stocker le temps de début */
 
-    RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80);                            /* Rectangle supplémentaire en bas */
+    ChoisirCouleurDessin(CouleurParComposante(255, 255, 255)); /* Couleur du texte pour le temps */
 
-    ChoisirCouleurDessin(CouleurParComposante(255, 255, 255)); /*Couleur du texte pour le temps */
     if (tempsDebut == 0) {
       tempsDebut = Microsecondes(); /* Enregistrer le temps de début si ce n'est pas déjà fait */
     }
