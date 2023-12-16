@@ -19,6 +19,7 @@ int main() {
 
   couleur couleurFond = CouleurParComposante(200, 200, 200);
   int touchePressee, i;
+  int pommeMangee;
   Serpent serpent;
   unsigned long tempsPrecedent = Microsecondes();
   unsigned long tempsActuel;
@@ -58,9 +59,16 @@ int main() {
 	        break;
             }
         }
+        
 
         tempsActuel = Microsecondes();
         if (tempsActuel - tempsPrecedent >= VITESSE_SERPENT) {
+             MangerPomme(pommes, NB_POMMES, serpent.corps[0].x, serpent.corps[0].y, &pommeMangee);
+            if (pommeMangee) {
+            serpent.longueur++;  
+            GererPommesMangees(pommes, NB_POMMES);
+            pommeMangee = 0;
+            }
             DeplacerSerpent(&serpent);
             if (VerifierCollision(&serpent)) {
                 FermerGraphique();
@@ -69,7 +77,7 @@ int main() {
 
             EffacerEcran(couleurFond);
             DessinerSerpent(&serpent);
-	    AfficherPommes(pommes, NB_POMMES); 
+            AfficherPommes(pommes, NB_POMMES);
             AfficherFenetre();
             tempsPrecedent = tempsActuel;
 	    ChoisirCouleurDessin(couleurMurs);
