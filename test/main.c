@@ -3,6 +3,7 @@
 #include <graph.h>
 #include "serpent.h"
 #include "fruit.h"
+#include "fond.h"
 
 #define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
 #define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
@@ -60,7 +61,6 @@ int main() {
             }
         }
         
-
         tempsActuel = Microsecondes();
         if (tempsActuel - tempsPrecedent >= VITESSE_SERPENT) {
              MangerPomme(pommes, NB_POMMES, serpent.corps[0].x, serpent.corps[0].y, &pommeMangee);
@@ -75,13 +75,14 @@ int main() {
                 return EXIT_SUCCESS;
             }
 
-            EffacerEcran(couleurFond);
-            DessinerSerpent(&serpent);
-            AfficherPommes(pommes, NB_POMMES);
-            AfficherFenetre();
-            tempsPrecedent = tempsActuel;
-	    ChoisirCouleurDessin(couleurMurs);
-	    RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80);                       
+        EffacerEcran(couleurFond);
+        DessinerSerpent(&serpent);
+        AfficherPommes(pommes, NB_POMMES);
+        ChoisirCouleurDessin(couleurMurs);
+        RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80); 
+        dessinerMurs(); 
+        AfficherFenetre();
+        tempsPrecedent = tempsActuel;                    
         }
     }
     
