@@ -9,6 +9,11 @@ typedef struct {
   int sprite; /* Ajout d'un identifiant pour le sprite de la pomme */
 } Pomme;
 
+typedef struct {
+  int score; /* Nouveau champ pour stocker le score */
+} Jeu;
+
+void AugmenterScore(); 
 void InitialiserPommes(Pomme pommes[], int nombrePommes);
 void GenererPommes(Pomme pommes[], int nombrePommes);
 void GererPommesMangees(Pomme pommes[], int nombrePommes);

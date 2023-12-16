@@ -2,5 +2,6 @@
 #define FOND_H
 
 void dessinerMurs();
+void dessinerScore();
 
 #endif 

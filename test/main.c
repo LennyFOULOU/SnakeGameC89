@@ -85,7 +85,8 @@ int main() {
         AfficherPommes(pommes, NB_POMMES);
         ChoisirCouleurDessin(couleurMurs);
         RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80); 
-        dessinerMurs(); 
+        dessinerMurs();
+	dessinerScore();
         AfficherFenetre();
         tempsPrecedent = tempsActuel;                    
         }

@@ -33,3 +33,12 @@ void dessinerMurs() {
     snprintf(tempsString, sizeof(tempsString), "%02lu:%02lu", minutes, secondes);
     EcrireTexte(10, HAUTEUR_FENETRE - 30, tempsString, 2);
 }
+
+void dessinerScore() {
+  char scoreString[4]; /* Pour stocker le score sous forme de chaîne de caractères */
+  snprintf(scoreString, sizeof(scoreString), "%03d", ObtenirScore()); /* Formater le score à trois chiffres (exemple: 001, 010, 100) */
+
+  /* Affichage du score en bas à droite */
+  ChoisirCouleurDessin(CouleurParComposante(255, 255, 255)); /* Couleur du texte pour le score */
+  EcrireTexte(LARGEUR_FENETRE - 60, HAUTEUR_FENETRE - 30, scoreString, 2);
+}
