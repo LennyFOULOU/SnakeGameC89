@@ -14,14 +14,8 @@
 #define VITESSE_SERPENT 100000
 #define NB_POMMES 5
 
-void AfficherEcranDefaite() {
-  int imageChargee;
-  imageChargee = ChargerImage("image/defaite.xpm", (LARGEUR_FENETRE - 1300) / 2, (HAUTEUR_FENETRE - 900) / 2, 0, 0, 1000, 1000);
-    AfficherFenetre();
-}
 
 int main() {
-
 
   couleur couleurFond = CouleurParComposante(200, 200, 200);
   int touchePressee, i;

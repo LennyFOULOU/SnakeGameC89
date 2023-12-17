@@ -3,5 +3,6 @@
 
 void dessinerMurs();
 void dessinerScore();
+void AfficherEcranDefaite();
 
 #endif 

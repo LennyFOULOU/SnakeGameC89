@@ -42,3 +42,10 @@ void dessinerScore() {
   ChoisirCouleurDessin(CouleurParComposante(255, 255, 255)); /* Couleur du texte pour le score */
   EcrireTexte(LARGEUR_FENETRE - 60, HAUTEUR_FENETRE - 30, scoreString, 2);
 }
+
+void AfficherEcranDefaite() {
+  int imageChargee;
+  imageChargee = ChargerImage("image/defaite.xpm", (LARGEUR_FENETRE - 1300) / 2, (HAUTEUR_FENETRE - 900) / 2, 0, 0, 1000, 1000);
+    AfficherFenetre();
+}
+
