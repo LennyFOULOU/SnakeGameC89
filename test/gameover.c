@@ -10,14 +10,13 @@
 #define TAILLE_BOUTON 100
 #define NB_POMMES 5
 
-void AfficherGameOver() {
-    ChoisirCouleurDessin(CouleurParNom("black"));
-    RemplirRectangle(0, 0, LARGEUR_FENETRE, HAUTEUR_FENETRE);
-    ChoisirCouleurDessin(CouleurParNom("red"));
-    EcrireTexte(LARGEUR_FENETRE / 2 - 100, HAUTEUR_FENETRE / 2, "Game Over", 2);
-    EcrireTexte(LARGEUR_FENETRE / 2 - 150, HAUTEUR_FENETRE / 2 + 50, "Cliquez pour rejouer", 2);
-}
 
+
+void AfficherGameOver() {
+
+
+ChargerImageFond("image/defaite.png");
+}
 void ReinitialiserJeu() {
 Serpent serpent;
     Pomme pommes[NB_POMMES];
