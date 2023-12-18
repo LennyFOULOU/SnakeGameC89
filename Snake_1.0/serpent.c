@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <graph.h>
-#include"serpent.h"
+#include "serpent.h"
 
 
 #define LARGEUR_FENETRE 1600
