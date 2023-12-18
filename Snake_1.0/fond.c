@@ -45,7 +45,7 @@ void dessinerScore() {
 
 void AfficherEcranDefaite() {
   int imageChargee;
-  imageChargee = ChargerImage("image/defaite.xpm", (LARGEUR_FENETRE - 1300) / 2, (HAUTEUR_FENETRE - 900) / 2, 0, 0, 1000, 1000);
+  imageChargee = ChargerImage("image/defaite.png", (LARGEUR_FENETRE - 1300) / 2, (HAUTEUR_FENETRE - 900) / 2, 0, 0, 1000, 1000);
     AfficherFenetre();
 }
 
@@ -55,7 +55,7 @@ void dessinerScoreFin() {
 
   /* Affichage du score en bas à droite */
   ChoisirCouleurDessin(CouleurParComposante(0, 0, 0)); /* Couleur du texte pour le score */
-  EcrireTexte(LARGEUR_FENETRE - 810, HAUTEUR_FENETRE - 590, scoreString, 2);
+  EcrireTexte(LARGEUR_FENETRE - 832, HAUTEUR_FENETRE - 605, scoreString, 2);
 }
 
 void dessinerTempsFinal(unsigned long tempsEcoule) {    
@@ -70,16 +70,6 @@ void dessinerTempsFinal(unsigned long tempsEcoule) {
   snprintf(tempsString, sizeof(tempsString), "%02lu:%02lu", minutes, secondes);  
   
   ChoisirCouleurDessin(CouleurParComposante(0, 0, 0)); /* Couleur du texte pour le temps final */
-  EcrireTexte(LARGEUR_FENETRE - 805, HAUTEUR_FENETRE - 540, tempsString, 2);
+  EcrireTexte(LARGEUR_FENETRE - 860, HAUTEUR_FENETRE - 530, tempsString, 2);
 }
 
-/*
-void SourisPosition();
-recupere les coordonnees de la souris dans la fenetre et les place dans _X et _Y
-
-int SourisCliquee();
-indique un clic de souris (1 si oui, 0 sinon), et recupere si c'est le cas la position au moment du clic dans _X et _Y 
-
-RemplirRectangle(680, 505, 100, 40); [bouton restart] 
-RemplirRectangle(790, 505, 100, 40); [bouton quit]  
-*/
