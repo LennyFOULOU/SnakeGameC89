@@ -2,7 +2,6 @@
 #include <graph.h>
 #include"serpent.h"
 
-#include <unistd.h>
 
 #define LARGEUR_FENETRE 1600
 #define HAUTEUR_FENETRE 1000

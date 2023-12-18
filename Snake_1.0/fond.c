@@ -49,3 +49,26 @@ void AfficherEcranDefaite() {
     AfficherFenetre();
 }
 
+void dessinerScoreFin() {
+  char scoreString[4]; /* Pour stocker le score sous forme de chaîne de caractères */
+  snprintf(scoreString, sizeof(scoreString), "%03d", ObtenirScore()); /* Formater le score à trois chiffres (exemple: 001, 010, 100) */
+
+  /* Affichage du score en bas à droite */
+  ChoisirCouleurDessin(CouleurParComposante(0, 0, 0)); /* Couleur du texte pour le score */
+  EcrireTexte(LARGEUR_FENETRE - 810, HAUTEUR_FENETRE - 590, scoreString, 2);
+}
+
+void dessinerTempsFinal(unsigned long tempsEcoule) {    
+  unsigned long minutes, secondes; 
+  char tempsString[10];
+  
+  /* Calcul des minutes et des secondes */
+  minutes = tempsEcoule / 60;
+  secondes = tempsEcoule % 60;
+  
+  /* Conversion en chaîne de caractères avec le bon format */
+  snprintf(tempsString, sizeof(tempsString), "%02lu:%02lu", minutes, secondes);  
+  
+  ChoisirCouleurDessin(CouleurParComposante(0, 0, 0)); /* Couleur du texte pour le temps final */
+  EcrireTexte(LARGEUR_FENETRE - 805, HAUTEUR_FENETRE - 540, tempsString, 2);
+}

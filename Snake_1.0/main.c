@@ -27,6 +27,9 @@ int main() {
   int Pause;
   Pomme pommes[NB_POMMES];
   int defaite = 0;
+
+  unsigned long tempsDebut = Microsecondes(); /* Enregistrer le temps de début du jeu */
+  unsigned long tempsEcoule = 0; 
   
   srand(time(NULL));
   
@@ -61,46 +64,51 @@ int main() {
 	        break;
             }
         }
+
         if(!Pause) {
         tempsActuel = Microsecondes();
+        tempsEcoule = (tempsActuel - tempsDebut) / 1000000;
         if (tempsActuel - tempsPrecedent >= VITESSE_SERPENT) {
-             MangerPomme(pommes, NB_POMMES, serpent.corps[0].x, serpent.corps[0].y, &pommeMangee);
-            if (pommeMangee) {
-            serpent.longueur+=2;  
-            GererPommesMangees(pommes, NB_POMMES);
-            pommeMangee = 0;
-            }
-            DeplacerSerpent(&serpent);
-            if (VerifierCollision(&serpent)) {
+        MangerPomme(pommes, NB_POMMES, serpent.corps[0].x, serpent.corps[0].y, &pommeMangee);
+        if (pommeMangee) {
+        serpent.longueur+=2;  
+        GererPommesMangees(pommes, NB_POMMES);
+        pommeMangee = 0;
+        }
+        DeplacerSerpent(&serpent);
+        if (VerifierCollision(&serpent)) {
 	      defaite = 1;
 	      Pause = 1;	      
-            }
+        }
+
         EffacerEcran(couleurFond);
         DessinerSerpent(&serpent);
         AfficherPommes(pommes, NB_POMMES);
         ChoisirCouleurDessin(couleurMurs);
         RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80); 
         dessinerMurs();
-	dessinerScore();
+	      dessinerScore();
         AfficherFenetre();
         tempsPrecedent = tempsActuel;                    
         }
-	if (defaite && Pause) {
-            AfficherEcranDefaite();
-	    AfficherFenetre();
-	     while (1) {
-          if (ToucheEnAttente()) {
-            int touche2 = Touche();
-            if (touche2 == XK_Escape) {
-              break;
+	      if (defaite && Pause) {
+        AfficherEcranDefaite();
+	      AfficherFenetre();
+        dessinerScoreFin();
+        dessinerTempsFinal(tempsEcoule);
+	      while (1) {
+        if (ToucheEnAttente()) {
+        int touche2 = Touche();
+        if (touche2 == XK_Escape) {
+        break;
             }
-          }
         }
-       }
-    }
+        }
+        }
+   }
    }
    for (i = 0; i < NB_POMMES; i++) {
-       LibererSprite(pommes[i].sprite);
+    LibererSprite(pommes[i].sprite);
   }
     
    FermerGraphique();
