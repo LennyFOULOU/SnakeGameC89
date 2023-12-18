@@ -72,3 +72,14 @@ void dessinerTempsFinal(unsigned long tempsEcoule) {
   ChoisirCouleurDessin(CouleurParComposante(0, 0, 0)); /* Couleur du texte pour le temps final */
   EcrireTexte(LARGEUR_FENETRE - 805, HAUTEUR_FENETRE - 540, tempsString, 2);
 }
+
+/*
+void SourisPosition();
+recupere les coordonnees de la souris dans la fenetre et les place dans _X et _Y
+
+int SourisCliquee();
+indique un clic de souris (1 si oui, 0 sinon), et recupere si c'est le cas la position au moment du clic dans _X et _Y 
+
+RemplirRectangle(680, 505, 100, 40); [bouton restart] 
+RemplirRectangle(790, 505, 100, 40); [bouton quit]  
+*/

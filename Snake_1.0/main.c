@@ -89,13 +89,13 @@ int main() {
         dessinerMurs();
 	      dessinerScore();
         AfficherFenetre();
-        tempsPrecedent = tempsActuel;                    
+        tempsPrecedent = tempsActuel;  
         }
 	      if (defaite && Pause) {
         AfficherEcranDefaite();
 	      AfficherFenetre();
         dessinerScoreFin();
-        dessinerTempsFinal(tempsEcoule);
+        dessinerTempsFinal(tempsEcoule);                                
 	      while (1) {
         if (ToucheEnAttente()) {
         int touche2 = Touche();
