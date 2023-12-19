@@ -4,6 +4,7 @@
 #include "serpent.h"
 #include "fruit.h"
 #include "fond.h"
+#include"boss.h"
 
 #define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
 #define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
@@ -28,6 +29,8 @@ int main() {
   int Pause;
   Pomme pommes[NB_POMMES];
   int defaite = 0;
+  int bossInitialise = 0;
+  Boss boss;
 
   unsigned long tempsDebut = Microsecondes(); /* Enregistrer le temps de début du jeu */
   unsigned long tempsEcoule = 0; 
@@ -41,6 +44,7 @@ int main() {
   InitialiserPommes(pommes, NB_POMMES); 
   GenererPommes(pommes, NB_POMMES);
   InitialiserSerpent(&serpent, LARGEUR_FENETRE / 2, HAUTEUR_FENETRE / 2);
+
 
     while (1) {
 
@@ -114,6 +118,18 @@ int main() {
         AfficherFenetre();
         tempsPrecedent = tempsActuel;  
         }
+         if (ObtenirScore() >= 30) {
+            if (!bossInitialise) {
+                InitialiserBoss(&boss);
+                bossInitialise = 1;
+            }
+            DeplacerBoss(&boss);
+            DessinerBoss(boss.x, boss.y, boss.sprite);
+            if (CollisionAvecBoss(&serpent, &boss)) {
+                defaite = 1;
+                Pause = 1;
+            }
+         }
 	    if (defaite && Pause) {    
         if (ObtenirScore() >= NB_POINTS_VICTOIRE) {
         AfficherEcranVictoire(); 

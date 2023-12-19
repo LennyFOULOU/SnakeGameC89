@@ -20,27 +20,42 @@ void InitialiserBoss(Boss *boss) {
     boss->y = 0;
     boss->directionX = 1;
     boss->directionY = 0;
-    boss->sprite = ChargerSprite("image/shrek.png")
+    boss->sprite = ChargerSprite("image/shrek.png");
 }
 
 void DeplacerBoss(Boss *boss) {
 
     int direction = rand() % 4;  
+    int ancienX = boss->x;
+    int ancienY = boss->y;
 
-    if (direction == 0) {
-        boss->x -= 1;
+   if (direction == 0) {
+        boss->directionX = -1;
+        boss->directionY = 0;
     } else if (direction == 1) {
-        boss->x += 1;
+        boss->directionX = 1;
+        boss->directionY = 0;
     } else if (direction == 2) {
-        boss->y -= 1;
+        boss->directionX = 0;
+        boss->directionY = -1;
     } else if (direction == 3) {
-        boss->y += 1;
+        boss->directionX = 0;
+        boss->directionY = 1;
+    }
+
+    boss->x += boss->directionX;
+    boss->y += boss->directionY;
+    if (boss->x < 0 || boss->x >= LARGEUR_FENETRE || boss->y < 0 || boss->y >= HAUTEUR_FENETRE) {
+        boss->x = ancienX;
+        boss->y = ancienY;
+        boss->directionX = (rand() % 3) - 1; 
+        boss->directionY = (rand() % 3) - 1; 
     }
 
 
 }
 void DessinerBoss(int x, int y, int sprite) {
-    AfficherSprite(boss->sprite, x, y);
+        AfficherSprite(sprite, x, y)
 }
 
 int CollisionAvecBoss(const Serpent *serpent, const Boss *boss) {
