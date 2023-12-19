@@ -49,6 +49,12 @@ void AfficherEcranDefaite() {
     AfficherFenetre();
 }
 
+void AfficherEcranVictoire() {
+  int imageChargee;
+  imageChargee = ChargerImage("image/victoire.png", (LARGEUR_FENETRE - 1300) / 2, (HAUTEUR_FENETRE - 900) / 2, 0, 0, 1000, 1000);
+  AfficherFenetre();
+}
+
 void dessinerScoreFin() {
   char scoreString[4]; /* Pour stocker le score sous forme de chaîne de caractères */
   snprintf(scoreString, sizeof(scoreString), "%03d", ObtenirScore()); /* Formater le score à trois chiffres (exemple: 001, 010, 100) */
@@ -73,3 +79,27 @@ void dessinerTempsFinal(unsigned long tempsEcoule) {
   EcrireTexte(LARGEUR_FENETRE - 860, HAUTEUR_FENETRE - 530, tempsString, 2);
 }
 
+void verifierClicQuitter() {
+    int x, y;
+    static int clicEffectue = 0;
+
+    SourisPosition(); /* Récupérer les coordonnées de la souris */
+    x = _X;
+    y = _Y;
+
+    if (x >= 715 && x <= 860 && y >= 495 && y <= 540) {
+        /* La souris se trouve dans la zone de quitter */
+        if (SourisCliquee()) {
+            FermerGraphique(); 
+            exit(EXIT_SUCCESS);
+        }
+        clicEffectue = 1; /*Indique qu'un clic a été effectué dans la zone de quitter */
+    } else {
+        clicEffectue = 0; /* Réinitialise si le clic n'est pas dans la zone de quitter */
+    }
+
+    if (!SourisCliquee() && clicEffectue) {
+        /* Si aucun clic n'est actuellement en attente et qu'un clic a été effectué dans la zone de quitter */
+        clicEffectue = 0; /* Réinitialise le clic pour éviter une fermeture non voulue */
+    }
+}

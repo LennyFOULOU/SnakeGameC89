@@ -4,7 +4,9 @@
 void dessinerMurs();
 void dessinerScore();
 void AfficherEcranDefaite();
+void AfficherEcranVictoire();
 void dessinerScoreFin();
 void dessinerTempsFinal(unsigned long tempsEcoule);
+void verifierClicQuitter();
 
 #endif 

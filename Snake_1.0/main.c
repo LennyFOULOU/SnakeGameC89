@@ -13,6 +13,7 @@
 #define CYCLE 100000
 #define VITESSE_SERPENT 100000
 #define NB_POMMES 5
+#define NB_POINTS_VICTOIRE 500
 
 
 int main() {
@@ -91,15 +92,20 @@ int main() {
         AfficherFenetre();
         tempsPrecedent = tempsActuel;  
         }
-	      if (defaite && Pause) {
+	    if (defaite && Pause) {    
+        if (ObtenirScore() >= NB_POINTS_VICTOIRE) {
+        AfficherEcranVictoire(); 
+        } else {
         AfficherEcranDefaite();
-	      AfficherFenetre();
+        }
+        AfficherFenetre();
         dessinerScoreFin();
-        dessinerTempsFinal(tempsEcoule);                                
-	      while (1) {
+        dessinerTempsFinal(tempsEcoule);
+	    while (1) {        
+        verifierClicQuitter();
         if (ToucheEnAttente()) {
-        int touche2 = Touche();
-        if (touche2 == XK_Escape) {
+        int touche = Touche();
+        if (touche == XK_Escape) {
         break;
             }
         }
