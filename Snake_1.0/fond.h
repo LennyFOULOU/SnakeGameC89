@@ -8,5 +8,6 @@ void AfficherEcranVictoire();
 void dessinerScoreFin();
 void dessinerTempsFinal(unsigned long tempsEcoule);
 void verifierClicQuitter();
+void AfficherBarreProgression(int valeur);
 
 #endif 
