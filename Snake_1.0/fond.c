@@ -103,3 +103,13 @@ void verifierClicQuitter() {
         clicEffectue = 0; /* Réinitialise le clic pour éviter une fermeture non voulue */
     }
 }
+
+void AfficherBarreProgression(int pourcentage) {
+    char cheminImage[50];
+    /* Formater le chemin de l'image en fonction de la valeur reçue */
+    snprintf(cheminImage, sizeof(cheminImage), "image/%d.png", pourcentage);
+
+    /* Charger et afficher l'image */
+    ChargerImage(cheminImage, LARGEUR_FENETRE - 950, HAUTEUR_FENETRE - 50, 0, 0, 500, 500);
+    AfficherFenetre();
+}

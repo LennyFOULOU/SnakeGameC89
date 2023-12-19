@@ -41,9 +41,9 @@ int main() {
   InitialiserPommes(pommes, NB_POMMES); 
   GenererPommes(pommes, NB_POMMES);
   InitialiserSerpent(&serpent, LARGEUR_FENETRE / 2, HAUTEUR_FENETRE / 2);
-    
+
     while (1) {
-      
+
         if (ToucheEnAttente()) {
             int touche = Touche();
             if (touche == ' ') {
@@ -67,6 +67,29 @@ int main() {
         }
 
         if(!Pause) {
+        
+        if (ObtenirScore() >= 50 && ObtenirScore() <100) {
+            AfficherBarreProgression(10);
+        } else if (ObtenirScore() >= 100 && ObtenirScore() <150) {
+            AfficherBarreProgression(20);
+        } else if (ObtenirScore() >= 150 && ObtenirScore() <200) {
+            AfficherBarreProgression(30);
+        } else if (ObtenirScore() >= 200 && ObtenirScore() <250) {
+            AfficherBarreProgression(40);
+        } else if (ObtenirScore() >= 250 && ObtenirScore() <300) {
+            AfficherBarreProgression(50);
+        } else if (ObtenirScore() >= 300 && ObtenirScore() <350) {
+            AfficherBarreProgression(60);
+        } else if (ObtenirScore() >= 350 && ObtenirScore() <400) {
+            AfficherBarreProgression(70);
+        } else if (ObtenirScore() >= 400 && ObtenirScore() <450) {
+            AfficherBarreProgression(80);
+        } else if (ObtenirScore() >= 450 && ObtenirScore() <500) {
+            AfficherBarreProgression(90);
+        } else if (ObtenirScore() >= 500) {
+            AfficherBarreProgression(100);
+        } 
+
         tempsActuel = Microsecondes();
         tempsEcoule = (tempsActuel - tempsDebut) / 1000000;
         if (tempsActuel - tempsPrecedent >= VITESSE_SERPENT) {
@@ -81,14 +104,13 @@ int main() {
 	      defaite = 1;
 	      Pause = 1;	      
         }
-
         EffacerEcran(couleurFond);
         DessinerSerpent(&serpent);
         AfficherPommes(pommes, NB_POMMES);
         ChoisirCouleurDessin(couleurMurs);
         RemplirRectangle(0, HAUTEUR_FENETRE - 80, LARGEUR_FENETRE, 80); 
         dessinerMurs();
-	      dessinerScore();
+	    dessinerScore();
         AfficherFenetre();
         tempsPrecedent = tempsActuel;  
         }
