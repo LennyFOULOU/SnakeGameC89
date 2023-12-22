@@ -93,7 +93,7 @@ void verifierClicQuitter() {
             FermerGraphique(); 
             exit(EXIT_SUCCESS);
         }
-        clicEffectue = 1; /*Indique qu'un clic a été effectué dans la zone de quitter */
+        clicEffectue = 1; /* Indique qu'un clic a été effectué dans la zone de quitter */
     } else {
         clicEffectue = 0; /* Réinitialise si le clic n'est pas dans la zone de quitter */
     }
@@ -110,6 +110,6 @@ void AfficherBarreProgression(int pourcentage) {
     snprintf(cheminImage, sizeof(cheminImage), "image/%d.png", pourcentage);
 
     /* Charger et afficher l'image */
-    ChargerImage(cheminImage, LARGEUR_FENETRE - 950, HAUTEUR_FENETRE - 50, 0, 0, 500, 500);
+    ChargerImage(cheminImage, LARGEUR_FENETRE - 1100, HAUTEUR_FENETRE - 60, 0, 0, 600, 600);
     AfficherFenetre();
 }
