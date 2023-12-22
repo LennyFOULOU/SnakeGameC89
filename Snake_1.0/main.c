@@ -66,7 +66,7 @@ int main() {
                 serpent.directionX = 0;
                 serpent.directionY = 1;
             } else if (touche == XK_Escape) { 
-	        break;
+	        return;
             }
         }
 
@@ -129,7 +129,7 @@ int main() {
                 defaite = 1;
                 Pause = 1;
             }
-         }
+         } 
 	    if (defaite && Pause) {    
         if (ObtenirScore() >= NB_POINTS_VICTOIRE) {
         AfficherEcranVictoire(); 
@@ -144,7 +144,7 @@ int main() {
         if (ToucheEnAttente()) {
         int touche = Touche();
         if (touche == XK_Escape) {
-        break;
+        return;
             }
         }
         }
@@ -154,8 +154,9 @@ int main() {
    for (i = 0; i < NB_POMMES; i++) {
     LibererSprite(pommes[i].sprite);
   }
-    
+    LibererSprite(boss.sprite);
    FermerGraphique();
+   
    return EXIT_SUCCESS;
  }
     
