@@ -1,5 +1,5 @@
-jeu: main.o serpent.o fruit.o fond.o boss.o
-	gcc -ansi -pedantic -o jeu main.o fruit.o serpent.o fond.o boss.o -lgraph
+jeu: main.o serpent.o fruit.o fond.o boss.o menu.o
+	gcc -ansi -pedantic -o jeu main.o fruit.o serpent.o fond.o boss.o menu.o -lgraph
 
 main.o: main.c 
 	gcc -ansi -pedantic -c main.c
@@ -15,8 +15,11 @@ fond.o: fond.c
 
 boss.o: boss.c
 	gcc -ansi -pedantic -c boss.c
-	
+
+menu.o: menu.c
+	gcc -ansi -pedantic -c menu.c 
+
 clean:
 	rm -f jeu *.o
 
-.PHONY:	clean
+.PHONY: clean

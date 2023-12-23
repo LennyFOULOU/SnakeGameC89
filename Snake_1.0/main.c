@@ -5,6 +5,7 @@
 #include "fruit.h"
 #include "fond.h"
 #include "boss.h"
+#include "menu.h"
 #define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre */
 #define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre */
 #define TAILLE_CASE 20       /* Taille d'une case pour le jeu de Snake */
@@ -35,11 +36,16 @@ int main() {
   Boss boss1, boss2, boss3;
   EffetBoss effetBoss1, effetBoss2, effetBoss3;
   int effetBoss1Initialise = 0, effetBoss2Initialise = 0, effetBoss3Initialise = 0;
+  int debutJeu = 0;
   srand(time(NULL));
   InitialiserGraphique();
   CreerFenetre(10, 10, LARGEUR_FENETRE, HAUTEUR_FENETRE);
   EffacerEcran(couleurFond);
+          AfficherMenu();
+
   AfficherFenetre();
+debutJeu = GererMenu();
+  if (debutJeu) {
   InitialiserPommes(pommes, NB_POMMES); 
   GenererPommes(pommes, NB_POMMES);
   InitialiserSerpent(&serpent, LARGEUR_FENETRE / 2, HAUTEUR_FENETRE / 2);
@@ -218,6 +224,7 @@ int main() {
     LibererSprite(effetBoss3.sprite);
     }
     
+  }
    FermerGraphique();
    return EXIT_SUCCESS;
 }
