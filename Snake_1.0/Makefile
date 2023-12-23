@@ -21,5 +21,8 @@ menu.o: menu.c
 
 clean:
 	rm -f jeu *.o
+	
+run:
+	./jeu
 
-.PHONY: clean
+.PHONY: run clean

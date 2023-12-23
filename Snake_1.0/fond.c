@@ -110,6 +110,6 @@ void AfficherBarreProgression(int pourcentage) {
     snprintf(cheminImage, sizeof(cheminImage), "image/%d.png", pourcentage);
 
     /* Charger et afficher l'image */
-    ChargerImage(cheminImage, LARGEUR_FENETRE - 1100, HAUTEUR_FENETRE - 60, 0, 0, 600, 600);
+    ChargerImage(cheminImage, LARGEUR_FENETRE - 1100, HAUTEUR_FENETRE - 60, 0, 0, 800, 800);
     AfficherFenetre();
 }

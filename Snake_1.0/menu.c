@@ -7,7 +7,7 @@
 
 
 void AfficherMenu() {
-ChargerImage("image/defaite.png", (LARGEUR_FENETRE - 1300) / 2, (HAUTEUR_FENETRE - 900) / 2, 0, 0, 1000, 1000);
+ChargerImage("image/demarrage.png", (LARGEUR_FENETRE - 1300) / 2, (HAUTEUR_FENETRE - 900) / 2, 0, 0, 1000, 1000);
   AfficherFenetre();
 }
 
