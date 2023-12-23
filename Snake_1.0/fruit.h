@@ -16,7 +16,7 @@ typedef struct {
 void AugmenterScore(); 
 void InitialiserPommes(Pomme pommes[], int nombrePommes);
 void GenererPommes(Pomme pommes[], int nombrePommes);
-void GererPommesMangees(Pomme pommes[], int nombrePommes);
+void GererPommesMangees(Pomme pommes[], int nombrePommes, Serpent *serpent);
 void AfficherPommes(Pomme pommes[], int nombrePommes);
 void MangerPomme(Pomme pommes[], int nombrePommes, int x, int y, int *pommeMangee);
 void DessinerPomme(int x, int y, int sprite); 

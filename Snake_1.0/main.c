@@ -4,10 +4,9 @@
 #include "serpent.h"
 #include "fruit.h"
 #include "fond.h"
-#include"boss.h"
-
-#define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre (60 colonnes de jeu + murs de 2 cases de chaque côté) */
-#define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre (40 lignes de jeu + murs de 2 cases en haut et en bas) */
+#include "boss.h"
+#define LARGEUR_FENETRE 1600 /* Largeur de la fenêtre */
+#define HAUTEUR_FENETRE 1000 /* Hauteur de la fenêtre */
 #define TAILLE_CASE 20       /* Taille d'une case pour le jeu de Snake */
 #define NB_COLONNES 60       /* Nombre de colonnes du jeu */
 #define NB_LIGNES 40         /* Nombre de lignes du jeu */
@@ -15,10 +14,10 @@
 #define VITESSE_SERPENT 100000
 #define NB_POMMES 5
 #define NB_POINTS_VICTOIRE 500
-
-
+#define SEUIL_BOSS_1 30
+#define SEUIL_BOSS_2 200
+#define SEUIL_BOSS_3 350
 int main() {
-
   couleur couleurFond = CouleurParComposante(200, 200, 200);
   int touchePressee, i;
   int pommeMangee;
@@ -29,14 +28,14 @@ int main() {
   int Pause;
   Pomme pommes[NB_POMMES];
   int defaite = 0;
-  int bossInitialise = 0;
-  Boss boss;
-
-  unsigned long tempsDebut = Microsecondes(); /* Enregistrer le temps de début du jeu */
+  unsigned long tempsDebut = Microsecondes(); 
   unsigned long tempsEcoule = 0; 
-  
+  int scoreActuel, scorePrecedent = 0;  
+  int boss1Initialise = 0, boss2Initialise = 0, boss3Initialise = 0;
+  Boss boss1, boss2, boss3;
+  EffetBoss effetBoss1, effetBoss2, effetBoss3;
+  int effetBoss1Initialise = 0, effetBoss2Initialise = 0, effetBoss3Initialise = 0;
   srand(time(NULL));
-  
   InitialiserGraphique();
   CreerFenetre(10, 10, LARGEUR_FENETRE, HAUTEUR_FENETRE);
   EffacerEcran(couleurFond);
@@ -44,10 +43,7 @@ int main() {
   InitialiserPommes(pommes, NB_POMMES); 
   GenererPommes(pommes, NB_POMMES);
   InitialiserSerpent(&serpent, LARGEUR_FENETRE / 2, HAUTEUR_FENETRE / 2);
-
-
     while (1) {
-
         if (ToucheEnAttente()) {
             int touche = Touche();
             if (touche == ' ') {
@@ -66,41 +62,18 @@ int main() {
                 serpent.directionX = 0;
                 serpent.directionY = 1;
             } else if (touche == XK_Escape) { 
-	        return;
+	        break;
             }
         }
-
         if(!Pause) {
         
-        if (ObtenirScore() >= 50 && ObtenirScore() <100) {
-            AfficherBarreProgression(10);
-        } else if (ObtenirScore() >= 100 && ObtenirScore() <150) {
-            AfficherBarreProgression(20);
-        } else if (ObtenirScore() >= 150 && ObtenirScore() <200) {
-            AfficherBarreProgression(30);
-        } else if (ObtenirScore() >= 200 && ObtenirScore() <250) {
-            AfficherBarreProgression(40);
-        } else if (ObtenirScore() >= 250 && ObtenirScore() <300) {
-            AfficherBarreProgression(50);
-        } else if (ObtenirScore() >= 300 && ObtenirScore() <350) {
-            AfficherBarreProgression(60);
-        } else if (ObtenirScore() >= 350 && ObtenirScore() <400) {
-            AfficherBarreProgression(70);
-        } else if (ObtenirScore() >= 400 && ObtenirScore() <450) {
-            AfficherBarreProgression(80);
-        } else if (ObtenirScore() >= 450 && ObtenirScore() <500) {
-            AfficherBarreProgression(90);
-        } else if (ObtenirScore() >= 500) {
-            AfficherBarreProgression(100);
-        } 
-
         tempsActuel = Microsecondes();
         tempsEcoule = (tempsActuel - tempsDebut) / 1000000;
         if (tempsActuel - tempsPrecedent >= VITESSE_SERPENT) {
         MangerPomme(pommes, NB_POMMES, serpent.corps[0].x, serpent.corps[0].y, &pommeMangee);
         if (pommeMangee) {
         serpent.longueur+=2;  
-        GererPommesMangees(pommes, NB_POMMES);
+        GererPommesMangees(pommes, NB_POMMES, &serpent);
         pommeMangee = 0;
         }
         DeplacerSerpent(&serpent);
@@ -116,21 +89,91 @@ int main() {
         dessinerMurs();
 	    dessinerScore();
         AfficherFenetre();
-        tempsPrecedent = tempsActuel;  
+        tempsPrecedent = tempsActuel;
+        if (ObtenirScore() >= (SEUIL_BOSS_1 - 10) && !effetBoss1Initialise) {
+            InitialiserEffetBoss1(&effetBoss1);
+            effetBoss1Initialise = 1;
         }
-         if (ObtenirScore() >= 30) {
-            if (!bossInitialise) {
-                InitialiserBoss(&boss);
-                bossInitialise = 1;
-            }
-            DeplacerBoss(&boss);
-            DessinerBoss(boss.x, boss.y, boss.sprite);
-            if (CollisionAvecBoss(&serpent, &boss)) {
-                defaite = 1;
-                Pause = 1;
-            }
-         } 
-	    if (defaite && Pause) {    
+        if (ObtenirScore() >= (SEUIL_BOSS_2 - 10) && !effetBoss2Initialise) {
+            InitialiserEffetBoss2(&effetBoss2);
+            effetBoss2Initialise = 1;
+        }
+        if (ObtenirScore() >= (SEUIL_BOSS_3 - 10) && !effetBoss3Initialise) {
+            InitialiserEffetBoss3(&effetBoss3);
+            effetBoss3Initialise = 1;
+        }
+        if (effetBoss1Initialise && ObtenirScore() < SEUIL_BOSS_1 ) {
+            AfficherEffetBoss(&effetBoss1);
+        }
+        if (effetBoss2Initialise && ObtenirScore() < SEUIL_BOSS_2 ) {
+            AfficherEffetBoss(&effetBoss2);
+        }
+        if (effetBoss3Initialise && ObtenirScore() < SEUIL_BOSS_3 ) {
+            AfficherEffetBoss(&effetBoss3);
+        }
+	
+        if (ObtenirScore() >= SEUIL_BOSS_1 && !boss1Initialise) {
+        InitialiserBoss1(&boss1);
+        boss1Initialise = 1;
+        }
+	if (ObtenirScore() >= SEUIL_BOSS_2 && !boss2Initialise) {
+        InitialiserBoss2(&boss2);
+        boss2Initialise = 1;
+        }
+        if (ObtenirScore() >= SEUIL_BOSS_3 && !boss3Initialise) {
+        InitialiserBoss3(&boss3);
+        boss3Initialise = 1;
+        }
+	if (boss1Initialise) {
+        DeplacerBoss1(&boss1);
+        DessinerBoss(boss1.x, boss1.y, boss1.sprite);
+        if (CollisionAvecBoss1(&serpent, &boss1)) {
+	defaite = 1;
+        Pause = 1;
+        }
+        }
+        if (boss2Initialise) {
+        DeplacerBoss2(&boss2);
+        DessinerBoss(boss2.x, boss2.y, boss2.sprite);
+        if (CollisionAvecBoss2(&serpent, &boss2)) {
+	defaite = 1;
+        Pause = 1;
+        }
+	}
+        if (boss3Initialise) {
+        DeplacerBoss3(&boss3);
+        DessinerBoss(boss3.x, boss3.y, boss3.sprite);
+        if (CollisionAvecBoss3(&serpent, &boss3)) {
+	defaite = 1;
+        Pause = 1;
+        }
+        }
+        scoreActuel = ObtenirScore();
+        if (scoreActuel != scorePrecedent) {
+        if (scoreActuel>= 50 && scoreActuel <100) {
+            AfficherBarreProgression(10);
+        } else if (scoreActuel >= 100 && scoreActuel <150) {
+            AfficherBarreProgression(20);
+        } else if (scoreActuel >= 150 && scoreActuel <200) {
+            AfficherBarreProgression(30);
+        } else if (scoreActuel >= 200 && scoreActuel <250) {
+            AfficherBarreProgression(40);
+        } else if (scoreActuel >= 250 && scoreActuel <300) {
+            AfficherBarreProgression(50);
+        } else if (scoreActuel >= 300 && scoreActuel <350) {
+            AfficherBarreProgression(60);
+        } else if (scoreActuel >= 350 && scoreActuel <400) {
+            AfficherBarreProgression(70);
+        } else if (scoreActuel >= 400 && scoreActuel <450) {
+            AfficherBarreProgression(80);
+        } else if (scoreActuel >= 450 && scoreActuel <500) {
+            AfficherBarreProgression(90);
+        } else if (scoreActuel >= 500) {
+            AfficherBarreProgression(100);
+        } 
+        }
+  
+	if (defaite && Pause) {    
         if (ObtenirScore() >= NB_POINTS_VICTOIRE) {
         AfficherEcranVictoire(); 
         } else {
@@ -144,24 +187,37 @@ int main() {
         if (ToucheEnAttente()) {
         int touche = Touche();
         if (touche == XK_Escape) {
-        return;
+        break;
             }
         }
         }
         }
-   }
-   }
-   for (i = 0; i < NB_POMMES; i++) {
+    }
+    }
+    }
+    
+    for (i = 0; i < NB_POMMES; i++) {
     LibererSprite(pommes[i].sprite);
-  }
-    LibererSprite(boss.sprite);
+    }
+    if (boss1Initialise) {
+    LibererSprite(boss1.sprite);
+    }
+    if (boss2Initialise) {
+    LibererSprite(boss2.sprite);
+    }
+    if (boss3Initialise) {
+    LibererSprite(boss3.sprite);
+    }
+    if (effetBoss1Initialise) {
+    LibererSprite(effetBoss1.sprite);
+    }
+    if (effetBoss2Initialise) {
+    LibererSprite(effetBoss2.sprite);
+    }
+    if (effetBoss3Initialise) {
+    LibererSprite(effetBoss3.sprite);
+    }
+    
    FermerGraphique();
-   
    return EXIT_SUCCESS;
- }
-    
-   
-    
-
-
-
+}

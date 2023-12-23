@@ -2,6 +2,7 @@
 #include <graph.h>
 #include <time.h>
 #include "fruit.h"
+#include "serpent.h"
 
 #define TAILLE_POMME 20
 #define NB_POMMES 5         
@@ -32,14 +33,26 @@ void GenererPommes(Pomme pommes[], int nombrePommes) {
 
     }
 }
-void GererPommesMangees(Pomme pommes[], int nombrePommes) {
-    int i;
+
+void GererPommesMangees(Pomme pommes[], int nombrePommes, Serpent* serpent) {
+    int i, j, pommeSurSerpent;
+
     for (i = 0; i < nombrePommes; i++) {
         if (pommes[i].estMangee) {
-         
-            pommes[i].x = TAILLE_POMME * (1 + rand() % (NB_COLONNES - 2));
-            pommes[i].y = TAILLE_POMME * (1 + rand() % ((NB_LIGNES - 2) - 2));
-            pommes[i].estMangee = 0; 
+            do {
+                pommeSurSerpent = 0;
+                pommes[i].x = TAILLE_POMME * (1 + rand() % (NB_COLONNES - 2));
+                pommes[i].y = TAILLE_POMME * (1 + rand() % ((NB_LIGNES - 2) - 2));
+                
+                for (j = 0; j < serpent->longueur; j++) {
+                    if (pommes[i].x == serpent->corps[j].x && pommes[i].y == serpent->corps[j].y) {
+                        pommeSurSerpent = 1;
+                        break;
+                    }
+                }
+            } while (pommeSurSerpent); 
+
+            pommes[i].estMangee = 0;
         }
     }
 }
